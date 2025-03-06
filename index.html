@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Shape Detector</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>Upload a Photo to Detect Face Shape</h1>
+    <input type="file" id="photoInput" accept="image/*" />
+    <div id="canvasContainer">
+      <canvas id="photoCanvas"></canvas>
+      <canvas id="faceMeshCanvas"></canvas>
+    </div>
+    <div id="results">
+      <p><strong>Face Shape:</strong> <span id="faceShapeResult">-</span></p>
+      <p><strong>Face Length:</strong> <span id="faceLengthResult">-</span></p>
+      <p><strong>Face Width:</strong> <span id="faceWidthResult">-</span></p>
+      <p>
+        <strong>Jawline Width:</strong> <span id="jawlineWidthResult">-</span>
+      </p>
+    </div>
+    <div id="faceShapePercentages">
+      <h2>Face Shape Probabilities</h2>
+      <div id="percentageBars"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
