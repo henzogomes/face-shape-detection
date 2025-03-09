@@ -18,6 +18,13 @@ else
     else
         error_exit ".env.local file not found. Please create it with the required variables for local testing."
     fi
+
+    # Install dependencies and build the project locally
+    echo "Installing dependencies..."
+    npm install || error_exit "Failed to install dependencies."
+
+    echo "Building project..."
+    npm run build || error_exit "Failed to build project."
 fi
 
 # Variables
@@ -25,11 +32,10 @@ S3_BUCKET_1="www.myfaceshape.pro"
 S3_BUCKET_2="www.faceshape.my"
 DIST_DIR="dist"
 
-# Function to display error messages and exit
-error_exit() {
-    echo "$1" 1>&2
-    exit 1
-}
+# Check if the dist directory exists
+if [ ! -d "$DIST_DIR" ]; then
+    error_exit "The $DIST_DIR directory does not exist. Please build the project first."
+fi
 
 # Sync the dist directory to the S3 buckets
 echo "Deploying to $S3_BUCKET_1..."
