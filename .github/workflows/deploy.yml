@@ -1,0 +1,52 @@
+name: Deploy to S3 and Purge Cloudflare Cache
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js (if your project requires Node.js)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Replace with your desired Node.js version
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build project
+        run: npm run build
+
+      # Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Install jq (required for parsing JSON responses)
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      # Run the deploy.sh script
+      - name: Deploy to S3 and Purge Cloudflare Cache
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CF_EMAIL: ${{ secrets.CF_EMAIL }}
+          CF_ZONE_ID_MYFACESHAPE_PRO: ${{ secrets.CF_ZONE_ID_MYFACESHAPE_PRO }}
+          CF_ZONE_ID_FACESHAPE_MY: ${{ secrets.CF_ZONE_ID_FACESHAPE_MY }}
+        run: |
+          chmod +x deploy.sh
+          ./deploy.sh
