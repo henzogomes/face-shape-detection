@@ -1,5 +1,4 @@
-// src/components/FileUpload.tsx
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { FaceMesh, FACEMESH_TESSELATION } from "@mediapipe/face_mesh";
 import { drawConnectors } from "@mediapipe/drawing_utils";
 import {
@@ -7,6 +6,7 @@ import {
   calculateConfidenceScores,
   normalizeScores,
 } from "../utils/faceShapeUtils";
+import { ColorExtractor } from "../utils/ColorExtractor";
 
 interface FileUploadProps {
   setFaceShape: React.Dispatch<React.SetStateAction<string>>;
@@ -29,6 +29,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
 }) => {
   const photoCanvasRef = useRef<HTMLCanvasElement>(null);
   const faceMeshCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [meshColor, setMeshColor] = useState("#FF0000"); // Default mesh color
+
+  // Function to add 50% transparency to a hex color
+  const getTransparentColor = (hex: string): string => {
+    // Convert hex to RGBA with 50% transparency
+    return `${hex}80`; // '80' is 50% opacity in hex (128 in decimal)
+  };
 
   // Initialize Face Mesh
   const faceMesh = new FaceMesh({
@@ -61,9 +69,10 @@ const FileUpload: React.FC<FileUploadProps> = ({
       }
 
       for (const landmarks of results.multiFaceLandmarks) {
-        // Draw face mesh
+        // Draw face mesh with the extracted color and 50% transparency
+        const transparentMeshColor = getTransparentColor(meshColor); // Add 50% transparency
         drawConnectors(faceMeshCtx, landmarks, FACEMESH_TESSELATION, {
-          color: "#FF0000",
+          color: transparentMeshColor, // Use the transparent color
           lineWidth: 1,
         });
 
@@ -107,6 +116,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
         );
         setFaceShape(mostLikelyShape);
         setError(null); // Clear any previous errors
+
+        // Set processing to complete
+        setIsProcessing(true);
       }
     }
   };
@@ -120,6 +132,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
       setError("Please select a valid image file.");
       return;
     }
+
+    setIsProcessing(false); // Reset processing state
 
     const img = new Image();
     img.src = URL.createObjectURL(file);
@@ -136,6 +150,10 @@ const FileUpload: React.FC<FileUploadProps> = ({
         if (photoCtx) {
           photoCtx.drawImage(img, 0, 0, img.width, img.height);
         }
+
+        // Extract predominant color from the image
+        const predominantColor = ColorExtractor.extractPredominantColor(img);
+        setMeshColor(predominantColor.hex); // Set the mesh color
 
         // Send image to Face Mesh
         faceMesh.send({ image: img });
@@ -160,11 +178,15 @@ const FileUpload: React.FC<FileUploadProps> = ({
       <div className="relative flex justify-center">
         <canvas
           ref={photoCanvasRef}
-          className="border border-gray-300 max-w-full"
+          className={`border border-gray-300 w-3/4 ${
+            isProcessing ? "" : "hidden"
+          }`}
         />
         <canvas
           ref={faceMeshCanvasRef}
-          className="absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none border border-gray-300 max-w-full"
+          className={`absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none border border-gray-300 w-3/4 ${
+            isProcessing ? "" : "hidden"
+          }`}
         />
       </div>
     </div>
