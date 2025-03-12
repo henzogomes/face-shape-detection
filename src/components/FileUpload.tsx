@@ -149,7 +149,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <div className="mt-5">
       <h1 className="text-2xl font-bold mb-5">
-        Upload a Photo to Detect Face Shape
+        Upload a Photo to Detect Your Face Shape With AI
       </h1>
       <input
         type="file"
