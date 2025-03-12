@@ -10,18 +10,6 @@ const Menu: React.FC = () => {
       <ul className="flex space-x-6">
         <li>
           <Link
-            to="/"
-            className={`transition-colors duration-200 ${
-              location.pathname === "/"
-                ? "text-blue-400 font-semibold"
-                : "hover:text-gray-300"
-            }`}
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
             to="/detect"
             className={`transition-colors duration-200 ${
               location.pathname === "/detect"

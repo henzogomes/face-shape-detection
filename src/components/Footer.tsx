@@ -1,31 +1,34 @@
+//src/components/Footer.tsx
 import React from "react";
 import { Link } from "react-router-dom";
+import Menu from "./Menu";
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-gray-800 text-white w-full fixed bottom-0">
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-3 gap-4">
+    <footer className="bg-gray-800 text-white mt-8">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Logo and Description */}
           <div>
-            <h3 className="font-bold text-lg">My Face Shape Detector</h3>
-            <p className="text-sm text-gray-300">
-              Your AI-powered face shape analysis tool
+            <Link to="/" className="text-xl font-bold">
+              Face Shape Detector
+            </Link>
+            <p className="mt-2 text-gray-400">
+              Discover your face shape using AI technology
             </p>
           </div>
 
-          <div className="text-center">
-            <p>&copy; {currentYear} All rights reserved</p>
+          {/* Copyright */}
+          <div>
+            <p className="text-gray-400">
+              © {new Date().getFullYear()} - All rights reserved
+            </p>
           </div>
 
-          <div className="flex flex-col items-end">
-            <Link to="/" className="hover:text-gray-300">
-              Home
-            </Link>
-            <Link to="/about" className="hover:text-gray-300">
-              About
-            </Link>
+          {/* Navigation */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
+            <Menu />
           </div>
         </div>
       </div>
