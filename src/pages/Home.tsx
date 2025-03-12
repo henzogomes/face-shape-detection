@@ -1,6 +1,7 @@
 //src/pages/Home.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { APP_ICON, APP_NAME } from "../Constants";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
         onClick={() => navigate("/detect")}
         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
       >
-        ✨ Start Detection
+        {APP_ICON} Let's Detect
       </button>
     </div>
   );

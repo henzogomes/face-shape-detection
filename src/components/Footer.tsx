@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Menu from "./Menu";
+import { APP_DESCRIPTION, APP_ICON, APP_NAME } from "../Constants";
 
 const Footer: React.FC = () => {
   return (
@@ -11,11 +12,9 @@ const Footer: React.FC = () => {
           {/* Logo and Description */}
           <div>
             <Link to="/" className="text-xl font-bold">
-              Face Shape Detector
+              {APP_ICON} {APP_NAME}
             </Link>
-            <p className="mt-2 text-gray-400">
-              Discover your face shape using AI technology
-            </p>
+            <p className="mt-2 text-gray-400">{APP_DESCRIPTION}</p>
           </div>
 
           {/* Copyright */}

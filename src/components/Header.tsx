@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Menu from "./Menu";
+import { APP_ICON, APP_NAME } from "../Constants";
 
 const Header: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-xl font-bold">
-            ✨ Face Shape Detector
+            {APP_ICON} {APP_NAME}
           </Link>
           <Menu />
         </div>
