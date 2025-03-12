@@ -41,8 +41,8 @@ fi
 echo "Deploying to $S3_BUCKET_1..."
 aws s3 sync $DIST_DIR s3://$S3_BUCKET_1 --acl public-read || error_exit "Failed to deploy to $S3_BUCKET_1."
 
-echo "Deploying to $S3_BUCKET_2..."
-aws s3 sync $DIST_DIR s3://$S3_BUCKET_2 --acl public-read || error_exit "Failed to deploy to $S3_BUCKET_2."
+#echo "Deploying to $S3_BUCKET_2..."
+#aws s3 sync $DIST_DIR s3://$S3_BUCKET_2 --acl public-read || error_exit "Failed to deploy to $S3_BUCKET_2."
 
 # Purge Cloudflare cache for myfaceshape.pro
 echo "Purging Cloudflare cache for myfaceshape.pro..."
