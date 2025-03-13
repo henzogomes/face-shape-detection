@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,8 +10,21 @@ import Detect from "./pages/Detect";
 import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useAnalytics } from "./hooks/useAnalytics";
 
-// Create a layout component that includes Header and Footer
+// Analytics wrapper component
+const AnalyticsWrapper = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const { trackPageView } = useAnalytics();
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location]);
+
+  return <>{children}</>;
+};
+
+// Layout component that includes Header and Footer
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
@@ -32,27 +45,29 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/detect"
-            element={
-              <Layout>
-                <Detect />
-              </Layout>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <Layout>
-                <About />
-              </Layout>
-            }
-          />
-        </Routes>
-      </div>
+      <AnalyticsWrapper>
+        <div className="flex flex-col min-h-screen">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/detect"
+              element={
+                <Layout>
+                  <Detect />
+                </Layout>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Layout>
+                  <About />
+                </Layout>
+              }
+            />
+          </Routes>
+        </div>
+      </AnalyticsWrapper>
     </Router>
   );
 };

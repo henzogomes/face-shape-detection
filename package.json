@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "css:watch": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch",
+    "css:build": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,6 +20,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "node-vibrant": "^4.0.3",
+    "posthog-js": "^1.230.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0"

@@ -23,13 +23,15 @@ else
     echo "Installing dependencies..."
     npm install || error_exit "Failed to install dependencies."
 
+    echo "Building css..."
+    npm run css:build || error_exit "Failed to build css."
+
     echo "Building project..."
     npm run build || error_exit "Failed to build project."
 fi
 
 # Variables
-S3_BUCKET_1="www.myfaceshape.pro"
-S3_BUCKET_2="www.faceshape.my"
+S3_BUCKET="www.faceshape.my"
 DIST_DIR="dist"
 
 # Check if the dist directory exists
@@ -38,11 +40,8 @@ if [ ! -d "$DIST_DIR" ]; then
 fi
 
 # Sync the dist directory to the S3 buckets
-echo "Deploying to $S3_BUCKET_1..."
-aws s3 sync $DIST_DIR s3://$S3_BUCKET_1 --acl public-read || error_exit "Failed to deploy to $S3_BUCKET_1."
-
-#echo "Deploying to $S3_BUCKET_2..."
-#aws s3 sync $DIST_DIR s3://$S3_BUCKET_2 --acl public-read || error_exit "Failed to deploy to $S3_BUCKET_2."
+echo "Deploying to $S3_BUCKET..."
+aws s3 sync $DIST_DIR s3://$S3_BUCKET --acl public-read || error_exit "Failed to deploy to $S3_BUCKET."
 
 # Purge Cloudflare cache for myfaceshape.pro
 echo "Purging Cloudflare cache for myfaceshape.pro..."
