@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "css:watch": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch",
+    "css:build": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
