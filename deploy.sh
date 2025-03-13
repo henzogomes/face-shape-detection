@@ -31,7 +31,7 @@ else
 fi
 
 # Variables
-S3_BUCKET="www.faceshape.my"
+S3_BUCKET="www.myfaceshape.pro"
 DIST_DIR="dist"
 
 # Check if the dist directory exists
