@@ -35,7 +35,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   // Function to add 50% transparency to a hex color
   const getTransparentColor = (hex: string): string => {
     // Convert hex to RGBA with 50% transparency
-    return `${hex}80`; // '80' is 50% opacity in hex (128 in decimal)
+    return `${hex}99`;
   };
 
   // Initialize Face Mesh

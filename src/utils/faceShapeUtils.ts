@@ -2,22 +2,57 @@
 
 // Define ideal ratios for each face shape
 const idealRatios = {
-  oblong: { lengthToWidth: 1.6, jawlineToWidth: 0.7, foreheadToWidth: 0.8 },
-  round: { lengthToWidth: 1.0, jawlineToWidth: 0.9, foreheadToWidth: 0.9 },
-  heart: { lengthToWidth: 1.2, jawlineToWidth: 0.6, foreheadToWidth: 0.85 },
-  square: { lengthToWidth: 1.1, jawlineToWidth: 1.0, foreheadToWidth: 0.9 },
-  oval: { lengthToWidth: 1.4, jawlineToWidth: 0.8, foreheadToWidth: 0.85 },
-  diamond: { lengthToWidth: 1.3, jawlineToWidth: 0.7, foreheadToWidth: 0.5 },
+  // OBLONG: Similar widths but longer length
+  oblong: {
+    lengthToWidth: 1.75, // Increased (was 1.6) - notably longer face
+    jawlineToWidth: 0.85, // Increased (was 0.7) - similar widths
+    foreheadToWidth: 0.85, // Increased (was 0.8) - similar widths
+  },
+
+  // OVAL: Slightly wider forehead than chin, gentle curves
+  oval: {
+    lengthToWidth: 1.5, // Increased (was 1.4) - notably longer than wide
+    jawlineToWidth: 0.75, // Slightly decreased (was 0.8) - narrower jaw
+    foreheadToWidth: 0.9, // Increased (was 0.85) - wider forehead
+  },
+
+  // SQUARE: Equal widths, strong jaw
+  square: {
+    lengthToWidth: 1.1, // Kept same - nearly equal length and width
+    jawlineToWidth: 0.95, // Slightly decreased (was 1.0) - strong but not extreme
+    foreheadToWidth: 0.95, // Increased (was 0.9) - equal widths
+  },
+
+  // ROUND: Soft curves, similar measurements
+  round: {
+    lengthToWidth: 1.1, // Increased (was 1.0) - slightly longer than perfectly round
+    jawlineToWidth: 0.85, // Decreased (was 0.9) - softer jaw
+    foreheadToWidth: 0.85, // Decreased (was 0.9) - gentle curves
+  },
+
+  // HEART: Wide forehead, narrow chin
+  heart: {
+    lengthToWidth: 1.3, // Increased (was 1.2) - more pronounced length
+    jawlineToWidth: 0.65, // Increased (was 0.6) - narrow but not extreme
+    foreheadToWidth: 0.95, // Increased (was 0.85) - distinctly wider forehead
+  },
+
+  // DIAMOND: Pointed chin, wide cheekbones, narrow forehead
+  diamond: {
+    lengthToWidth: 1.4, // Increased (was 1.3) - more elongated
+    jawlineToWidth: 0.65, // Decreased (was 0.7) - narrower jaw
+    foreheadToWidth: 0.7, // Increased (was 0.5) - not as extremely narrow
+  },
 };
 
 // Define tolerance ranges for each face shape characteristic
 const toleranceRanges = {
-  oblong: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
-  round: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
-  heart: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
-  square: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
-  oval: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
-  diamond: { lengthToWidth: 0.3, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
+  oblong: { lengthToWidth: 0.3, jawlineToWidth: 0.15, foreheadToWidth: 0.15 },
+  oval: { lengthToWidth: 0.25, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
+  square: { lengthToWidth: 0.2, jawlineToWidth: 0.15, foreheadToWidth: 0.15 },
+  round: { lengthToWidth: 0.2, jawlineToWidth: 0.2, foreheadToWidth: 0.2 },
+  heart: { lengthToWidth: 0.25, jawlineToWidth: 0.15, foreheadToWidth: 0.2 },
+  diamond: { lengthToWidth: 0.25, jawlineToWidth: 0.15, foreheadToWidth: 0.15 },
 };
 
 // Function to calculate the distance between two points
@@ -52,7 +87,6 @@ export const calculateConfidenceScores = (
   for (const [shape, ratios] of Object.entries(idealRatios)) {
     const tolerances = toleranceRanges[shape as keyof typeof toleranceRanges];
 
-    // Calculate how close each measurement is to the ideal
     const lengthToWidthFit = calculateFitScore(
       userLengthToWidth,
       ratios.lengthToWidth,
@@ -71,12 +105,12 @@ export const calculateConfidenceScores = (
       tolerances.foreheadToWidth
     );
 
-    // Weight the different measurements - using a moderate exponent
+    // Increased exponent for more differentiation and adjusted weights
     const confidence = Math.pow(
-      0.5 * lengthToWidthFit +
-        0.3 * jawlineToWidthFit +
-        0.2 * foreheadToWidthFit,
-      1.5 // Moderate exponent for some differentiation
+      0.6 * lengthToWidthFit +
+        0.25 * jawlineToWidthFit +
+        0.15 * foreheadToWidthFit,
+      2.5 // Increased exponent for more spread
     );
 
     scores[shape] = confidence;
@@ -114,18 +148,17 @@ export const normalizeScores = (scores: {
   const minScore = Math.min(...Object.values(scores));
   const range = maxScore - minScore;
 
-  // First pass: apply moderate scaling with a baseline
-  const baselineScore = 0.2; // Ensure even lowest scores get some percentage
+  // Reduced baseline for more spread
+  const baselineScore = 0.1; // Reduced from 0.2
   const scaledScores: { [key: string]: number } = {};
 
   for (const shape of Object.keys(scores)) {
-    // Scale scores but maintain a minimum baseline
     const relativeScore = (scores[shape] - minScore) / range;
     scaledScores[shape] = baselineScore + relativeScore * (1 - baselineScore);
   }
 
-  // Apply a moderate temperature factor to create separation
-  const temperature = 2.0; // Moderate temperature
+  // Increased temperature for more dramatic separation
+  const temperature = 3.5; // Increased from 2.0
   const normalized: { [key: string]: number } = {};
   let total = 0;
 
