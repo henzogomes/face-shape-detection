@@ -36,29 +36,27 @@ const Results: React.FC<ResultsProps> = ({
           <ProgressBars probabilities={probabilities} />
         </div>
 
-        <div className="hidden">
-          <h3 className="text-lg font-bold mb-2">Measurements</h3>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <p className="text-gray-600 text-sm">Face Length</p>
-              <p className="font-medium">{faceLength}</p>
-            </div>
-            <div>
-              <p className="text-gray-600 text-sm">Face Width</p>
-              <p className="font-medium">{faceWidth}</p>
-            </div>
-            <div>
-              <p className="text-gray-600 text-sm">Jawline Width</p>
-              <p className="font-medium">{jawlineWidth}</p>
-            </div>
-            <div>
-              <p className="text-gray-600 text-sm">Ratio (L:W)</p>
-              <p className="font-medium">
-                {faceLength !== "-" && faceWidth !== "-"
-                  ? (Number(faceLength) / Number(faceWidth)).toFixed(2)
-                  : "-"}
-              </p>
-            </div>
+        <h3 className="text-lg font-bold mb-2 mt-10">Measurements</h3>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <p className="text-gray-600 text-sm">Face Length</p>
+            <p className="font-medium">{faceLength}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Face Width</p>
+            <p className="font-medium">{faceWidth}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Jawline Width</p>
+            <p className="font-medium">{jawlineWidth}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Ratio (L:W)</p>
+            <p className="font-medium">
+              {faceLength !== "-" && faceWidth !== "-"
+                ? (Number(faceLength) / Number(faceWidth)).toFixed(2)
+                : "-"}
+            </p>
           </div>
         </div>
       </div>

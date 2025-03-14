@@ -172,22 +172,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
       <h1 className="text-2xl font-bold mb-5">
         Upload a Photo to Detect Your Face Shape With AI
       </h1>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileUpload}
-        className="mb-5"
-      />
-      {isProcessing && (
-        <div className="mb-3">
-          <button
-            onClick={toggleMeasurements}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
-          >
-            {showMeasurements ? "Hide Measurements" : "Show Measurements"}
-          </button>
-        </div>
-      )}
       <div className="relative flex justify-center">
         <canvas
           ref={photoCanvasRef}
@@ -202,6 +186,25 @@ const FileUpload: React.FC<FileUploadProps> = ({
           }`}
         />
       </div>
+
+      <div className="m-5">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileUpload}
+          className="mb-5"
+        />
+      </div>
+      {isProcessing && (
+        <div className="mt-3 flex justify-center">
+          <button
+            onClick={toggleMeasurements}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
+          >
+            {showMeasurements ? "Hide Measurements" : "Show Measurements"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

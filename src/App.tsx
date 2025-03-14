@@ -36,7 +36,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
+      <main className="flex-1 container mx-auto px-4 py-8 bg-gray-100">
+        {children}
+      </main>
       <Footer />
     </>
   );
@@ -46,7 +48,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <AnalyticsWrapper>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-gray-100">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
