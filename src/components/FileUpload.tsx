@@ -1,8 +1,15 @@
-import React, { useRef, useState } from "react";
-import { FaceMesh } from "@mediapipe/face_mesh";
-import { ColorExtractor } from "../utils/ColorExtractor";
-import { renderFaceMeshWithMeasurements } from "../utils/faceMeshRenderer";
-import { resizeImage } from "../utils/imageResizer";
+import React, { useRef, useState, useEffect } from "react";
+import {
+  createFaceMesh,
+  processFaceMeshResults,
+  reRenderFaceMesh,
+  RenderCallbacks,
+  FaceMeshResults,
+} from "../utils/faceMeshProcessor";
+import {
+  processUploadedImage,
+  displayAndProcessImage,
+} from "../utils/imageProcessor";
 
 interface FileUploadProps {
   setFaceShape: React.Dispatch<React.SetStateAction<string>>;
@@ -29,31 +36,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
 }) => {
   const photoCanvasRef = useRef<HTMLCanvasElement>(null);
   const faceMeshCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [meshColor, setMeshColor] = useState("#FF0000"); // Default mesh color
-  const [lastResults, setLastResults] = useState<{
-    results: any;
-    currentMeshColor: string;
-  } | null>(null); // State to store the latest results
-
-  // Add a ref to store the current extracted color
   const extractedColorRef = useRef<string>("#FF0000");
-
-  // Initialize Face Mesh
-  const faceMesh = new FaceMesh({
-    locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
-    },
-  });
-
-  faceMesh.setOptions({
-    maxNumFaces: 1,
-    refineLandmarks: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5,
-  });
+  const [lastResults, setLastResults] = useState<FaceMeshResults | null>(null);
 
   // Create callbacks object for the rendering function
-  const renderCallbacks = {
+  const renderCallbacks: RenderCallbacks = {
     setError,
     setProbabilities,
     setFaceLength,
@@ -62,15 +49,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
     setFaceShape,
   };
 
-  // Modify onResults to use the extracted color ref
+  // Define onResults function
   const onResults = (results: any) => {
     const faceMeshCanvas = faceMeshCanvasRef.current;
     if (!faceMeshCanvas) return;
 
-    const faceMeshCtx = faceMeshCanvas.getContext("2d");
-    if (!faceMeshCtx) return;
-
-    // Use the extracted color ref instead of the state
+    // Use the extracted color ref
     const currentColor = extractedColorRef.current;
 
     // Store latest results with the current extracted color
@@ -79,49 +63,29 @@ const FileUpload: React.FC<FileUploadProps> = ({
       currentMeshColor: currentColor,
     });
 
-    // Call the rendering function with the extracted color
-    renderFaceMesh(results, faceMeshCanvas, faceMeshCtx, currentColor);
+    // Process and render face mesh
+    processFaceMeshResults(
+      results,
+      faceMeshCanvas,
+      currentColor,
+      showMeasurements,
+      renderCallbacks,
+      setIsProcessing
+    );
   };
 
-  // Create a separate function to handle rendering
-  const renderFaceMesh = (
-    results: any,
-    canvas: HTMLCanvasElement,
-    ctx: CanvasRenderingContext2D,
-    colorToUse: string
-  ) => {
-    // Use the imported rendering function
-    renderFaceMeshWithMeasurements(
-      results,
-      canvas,
-      ctx,
-      colorToUse,
+  // Initialize face mesh
+  const faceMesh = createFaceMesh(onResults);
+
+  // Re-render when measurements display setting changes
+  useEffect(() => {
+    reRenderFaceMesh(
+      lastResults,
+      faceMeshCanvasRef.current,
       showMeasurements,
       renderCallbacks
     );
-
-    // Set processing to complete if we get this far
-    setIsProcessing(true);
-  };
-
-  // Update rendering when showMeasurements changes
-  React.useEffect(() => {
-    if (lastResults && faceMeshCanvasRef.current) {
-      const ctx = faceMeshCanvasRef.current.getContext("2d");
-      if (ctx) {
-        renderFaceMeshWithMeasurements(
-          lastResults.results,
-          faceMeshCanvasRef.current,
-          ctx,
-          lastResults.currentMeshColor,
-          showMeasurements,
-          renderCallbacks
-        );
-      }
-    }
-  }, [showMeasurements]);
-
-  faceMesh.onResults(onResults);
+  }, [showMeasurements, lastResults]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -139,34 +103,19 @@ const FileUpload: React.FC<FileUploadProps> = ({
       const faceMeshCanvas = faceMeshCanvasRef.current;
 
       if (photoCanvas && faceMeshCanvas) {
-        // Resize the image to optimal dimensions
-        const resizedCanvas = resizeImage(img);
-        const resizedWidth = resizedCanvas.width;
-        const resizedHeight = resizedCanvas.height;
+        // Process the uploaded image
+        const imgProcessResult = processUploadedImage(img);
 
-        // Set canvas dimensions to match the resized image
-        photoCanvas.width = resizedWidth;
-        photoCanvas.height = resizedHeight;
-        faceMeshCanvas.width = resizedWidth;
-        faceMeshCanvas.height = resizedHeight;
+        // Store the extracted color
+        extractedColorRef.current = imgProcessResult.extractedColor;
 
-        // Draw the resized image on the photo canvas
-        const photoCtx = photoCanvas.getContext("2d");
-        if (photoCtx) {
-          photoCtx.drawImage(resizedCanvas, 0, 0, resizedWidth, resizedHeight);
-        }
-
-        // Extract predominant color from the image
-        const predominantColor =
-          ColorExtractor.extractPredominantColor(resizedCanvas);
-        const newColor = predominantColor.hex;
-
-        // Store the color in both state and ref
-        setMeshColor(newColor);
-        extractedColorRef.current = newColor;
-
-        // Process the face mesh with the resized image
-        faceMesh.send({ image: resizedCanvas });
+        // Display and process the image
+        displayAndProcessImage(
+          imgProcessResult,
+          photoCanvas,
+          faceMeshCanvas,
+          faceMesh
+        );
       }
     };
     img.onerror = () => {
