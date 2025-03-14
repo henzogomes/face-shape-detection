@@ -1,6 +1,8 @@
 // src/components/Results.tsx
 import React from "react";
 import ProgressBars from "./ProgressBars";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRuler, faRulerHorizontal } from "@fortawesome/free-solid-svg-icons";
 
 interface ResultsProps {
   faceShape: string;
@@ -8,6 +10,9 @@ interface ResultsProps {
   faceWidth: string;
   jawlineWidth: string;
   probabilities: { [key: string]: number };
+  isProcessing: boolean;
+  showMeasurements: boolean;
+  toggleMeasurements: () => void;
 }
 
 const Results: React.FC<ResultsProps> = ({
@@ -16,6 +21,9 @@ const Results: React.FC<ResultsProps> = ({
   faceWidth,
   jawlineWidth,
   probabilities,
+  isProcessing,
+  showMeasurements,
+  toggleMeasurements,
 }) => {
   return (
     <div className="mt-5 text-left">
@@ -58,6 +66,21 @@ const Results: React.FC<ResultsProps> = ({
                 : "-"}
             </p>
           </div>
+
+          {/* Measurement control button - only shown after processing */}
+          {isProcessing && (
+            <div className="mb-4">
+              <button
+                onClick={toggleMeasurements}
+                className="bg-white text-black border border-black hover:bg-gray-100 font-bold py-1 px-3 rounded text-sm flex items-center gap-2"
+              >
+                <FontAwesomeIcon
+                  icon={showMeasurements ? faRulerHorizontal : faRuler}
+                />
+                {showMeasurements ? "Hide Measurements" : "Show Measurements"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

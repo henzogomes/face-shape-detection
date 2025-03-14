@@ -12,6 +12,8 @@ interface FileUploadProps {
     React.SetStateAction<{ [key: string]: number }>
   >;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
+  showMeasurements: boolean;
+  setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
@@ -21,12 +23,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
   setJawlineWidth,
   setProbabilities,
   setError,
+  showMeasurements,
+  setIsProcessing,
 }) => {
   const photoCanvasRef = useRef<HTMLCanvasElement>(null);
   const faceMeshCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
   const [meshColor, setMeshColor] = useState("#FF0000"); // Default mesh color
-  const [showMeasurements, setShowMeasurements] = useState(true);
   const [lastResults, setLastResults] = useState<{
     results: any;
     currentMeshColor: string;
@@ -101,6 +103,23 @@ const FileUpload: React.FC<FileUploadProps> = ({
     setIsProcessing(true);
   };
 
+  // Update rendering when showMeasurements changes
+  React.useEffect(() => {
+    if (lastResults && faceMeshCanvasRef.current) {
+      const ctx = faceMeshCanvasRef.current.getContext("2d");
+      if (ctx) {
+        renderFaceMeshWithMeasurements(
+          lastResults.results,
+          faceMeshCanvasRef.current,
+          ctx,
+          lastResults.currentMeshColor,
+          showMeasurements,
+          renderCallbacks
+        );
+      }
+    }
+  }, [showMeasurements]);
+
   faceMesh.onResults(onResults);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,28 +164,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
     };
   };
 
-  // Modify the toggle button click handler to force redraw with the new value
-  const toggleMeasurements = () => {
-    const newShowMeasurements = !showMeasurements;
-    setShowMeasurements(newShowMeasurements);
-
-    // Force redraw if we have results
-    if (lastResults && faceMeshCanvasRef.current) {
-      const ctx = faceMeshCanvasRef.current.getContext("2d");
-      if (ctx) {
-        // Use the imported rendering function directly
-        renderFaceMeshWithMeasurements(
-          lastResults.results,
-          faceMeshCanvasRef.current,
-          ctx,
-          lastResults.currentMeshColor,
-          newShowMeasurements,
-          renderCallbacks
-        );
-      }
-    }
-  };
-
   return (
     <div className="mt-5">
       <h1 className="text-2xl font-bold mb-5">
@@ -176,13 +173,13 @@ const FileUpload: React.FC<FileUploadProps> = ({
         <canvas
           ref={photoCanvasRef}
           className={`border border-gray-300 w-3/4 ${
-            isProcessing ? "" : "hidden"
+            lastResults ? "" : "hidden"
           }`}
         />
         <canvas
           ref={faceMeshCanvasRef}
           className={`absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none border border-gray-300 w-3/4 ${
-            isProcessing ? "" : "hidden"
+            lastResults ? "" : "hidden"
           }`}
         />
       </div>
@@ -195,16 +192,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
           className="mb-5"
         />
       </div>
-      {isProcessing && (
-        <div className="mt-3 flex justify-center">
-          <button
-            onClick={toggleMeasurements}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
-          >
-            {showMeasurements ? "Hide Measurements" : "Show Measurements"}
-          </button>
-        </div>
-      )}
     </div>
   );
 };

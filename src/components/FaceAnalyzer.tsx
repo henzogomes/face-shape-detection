@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import FileUpload from "./FileUpload";
 import Results from "./Results";
-import ProgressBars from "./ProgressBars";
 import ShapesInfo from "./ShapesInfo";
 
 const FaceAnalyzer: React.FC = () => {
@@ -14,6 +13,12 @@ const FaceAnalyzer: React.FC = () => {
     {}
   );
   const [error, setError] = useState<string | null>(null);
+  const [showMeasurements, setShowMeasurements] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const toggleMeasurements = () => {
+    setShowMeasurements(!showMeasurements);
+  };
 
   return (
     <div>
@@ -29,6 +34,8 @@ const FaceAnalyzer: React.FC = () => {
             setJawlineWidth={setJawlineWidth}
             setProbabilities={setProbabilities}
             setError={setError}
+            showMeasurements={showMeasurements}
+            setIsProcessing={setIsProcessing}
           />
         </div>
 
@@ -40,6 +47,9 @@ const FaceAnalyzer: React.FC = () => {
             faceWidth={faceWidth}
             jawlineWidth={jawlineWidth}
             probabilities={probabilities}
+            isProcessing={isProcessing}
+            showMeasurements={showMeasurements}
+            toggleMeasurements={toggleMeasurements}
           />
         </div>
       </div>
