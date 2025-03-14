@@ -30,8 +30,8 @@ const FaceAnalyzer: React.FC = () => {
         faceLength={faceLength}
         faceWidth={faceWidth}
         jawlineWidth={jawlineWidth}
+        probabilities={probabilities}
       />
-      <ProgressBars probabilities={probabilities} />
     </div>
   );
 };
