@@ -24,9 +24,9 @@ const FaceAnalyzer: React.FC = () => {
     <div>
       {error && <p className="text-red-500 mb-5 text-center">{error}</p>}
 
-      <div className="flex flex-col md:flex-row gap-6">
+      <div className="flex flex-col md:flex-row gap-1">
         {/* Left Column - File Upload */}
-        <div className="w-full md:w-1/2 p-4">
+        <div className="w-full md:w-2/3 p-4">
           <FileUpload
             setFaceShape={setFaceShape}
             setFaceLength={setFaceLength}
@@ -40,7 +40,7 @@ const FaceAnalyzer: React.FC = () => {
         </div>
 
         {/* Right Column - Results */}
-        <div className="w-full md:w-1/2 p-4">
+        <div className="w-full md:w-3/6 p-4">
           <Results
             faceShape={faceShape}
             faceLength={faceLength}

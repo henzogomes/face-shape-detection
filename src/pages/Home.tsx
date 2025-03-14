@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           trackDetectButtonClick();
           navigate("/detect");
         }}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+        className="bg-gray-800 text-white border border-gray-800 hover:bg-gray-700 font-bold py-2 px-4 rounded flex items-center gap-2"
       >
         {APP_ICON} Let's Detect
       </button>
