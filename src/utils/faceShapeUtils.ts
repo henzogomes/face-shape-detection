@@ -40,8 +40,8 @@ const idealRatios = {
   // DIAMOND: Pointed chin, wide cheekbones, narrow forehead
   diamond: {
     lengthToWidth: 1.4, // Increased (was 1.3) - more elongated
-    jawlineToWidth: 0.65, // Decreased (was 0.7) - narrower jaw
-    foreheadToWidth: 0.7, // Increased (was 0.5) - not as extremely narrow
+    jawlineToWidth: 0.65, // Keep the narrow jaw
+    foreheadToWidth: 0.6, // Decrease to make forehead narrower relative to cheekbones
   },
 };
 
