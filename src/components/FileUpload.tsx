@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { FaceMesh } from "@mediapipe/face_mesh";
 import { ColorExtractor } from "../utils/ColorExtractor";
 import { renderFaceMeshWithMeasurements } from "../utils/faceMeshRenderer";
+import { resizeImage } from "../utils/imageResizer";
 
 interface FileUploadProps {
   setFaceShape: React.Dispatch<React.SetStateAction<string>>;
@@ -136,27 +137,36 @@ const FileUpload: React.FC<FileUploadProps> = ({
     img.onload = () => {
       const photoCanvas = photoCanvasRef.current;
       const faceMeshCanvas = faceMeshCanvasRef.current;
-      if (photoCanvas && faceMeshCanvas) {
-        photoCanvas.width = img.width;
-        photoCanvas.height = img.height;
-        faceMeshCanvas.width = img.width;
-        faceMeshCanvas.height = img.height;
 
+      if (photoCanvas && faceMeshCanvas) {
+        // Resize the image to optimal dimensions
+        const resizedCanvas = resizeImage(img);
+        const resizedWidth = resizedCanvas.width;
+        const resizedHeight = resizedCanvas.height;
+
+        // Set canvas dimensions to match the resized image
+        photoCanvas.width = resizedWidth;
+        photoCanvas.height = resizedHeight;
+        faceMeshCanvas.width = resizedWidth;
+        faceMeshCanvas.height = resizedHeight;
+
+        // Draw the resized image on the photo canvas
         const photoCtx = photoCanvas.getContext("2d");
         if (photoCtx) {
-          photoCtx.drawImage(img, 0, 0, img.width, img.height);
+          photoCtx.drawImage(resizedCanvas, 0, 0, resizedWidth, resizedHeight);
         }
 
         // Extract predominant color from the image
-        const predominantColor = ColorExtractor.extractPredominantColor(img);
+        const predominantColor =
+          ColorExtractor.extractPredominantColor(resizedCanvas);
         const newColor = predominantColor.hex;
 
         // Store the color in both state and ref
         setMeshColor(newColor);
         extractedColorRef.current = newColor;
 
-        // Process the face mesh
-        faceMesh.send({ image: img });
+        // Process the face mesh with the resized image
+        faceMesh.send({ image: resizedCanvas });
       }
     };
     img.onerror = () => {
