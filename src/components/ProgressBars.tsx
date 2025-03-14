@@ -14,14 +14,26 @@ const ProgressBars: React.FC<ProgressBarsProps> = ({ probabilities }) => {
   return (
     <div className="mt-5">
       <h2 className="text-xl font-bold mb-3">Face Shape Probabilities</h2>
-      <div className="space-y-2">
+      <div className="space-y-4">
         {sortedProbabilities.map(([shape, percentage]) => (
-          <div key={shape} className="bg-gray-200 rounded">
-            <div
-              className="bg-blue-500 text-white text-sm py-1 px-2 rounded"
-              style={{ width: `${percentage}%` }}
-            >
-              {shape}: {percentage.toFixed(1)}%
+          <div key={shape} className="mb-2">
+            {/* Label above the bar */}
+            <div className="flex justify-between mb-1">
+              <span className="text-sm font-medium text-gray-800 capitalize">
+                {shape}
+              </span>
+              <span className="text-sm font-medium text-gray-800">
+                {percentage.toFixed(1)}%
+              </span>
+            </div>
+
+            {/* Thinner progress bar container */}
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              {/* Orange progress bar */}
+              <div
+                className="bg-orange-500 h-2.5 rounded-full"
+                style={{ width: `${percentage}%` }}
+              ></div>
             </div>
           </div>
         ))}
