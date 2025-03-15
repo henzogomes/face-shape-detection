@@ -64,7 +64,7 @@ export const processFaceMeshResults = (
   );
 
   // Set processing to complete
-  setIsProcessing(true);
+  setIsProcessing(false);
 };
 
 /**
