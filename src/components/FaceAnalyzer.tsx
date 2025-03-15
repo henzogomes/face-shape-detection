@@ -13,7 +13,7 @@ const FaceAnalyzer: React.FC = () => {
     {}
   );
   const [error, setError] = useState<string | null>(null);
-  const [showMeasurements, setShowMeasurements] = useState(true);
+  const [showMeasurements, setShowMeasurements] = useState(false); // Changed from true to false
   const [isProcessing, setIsProcessing] = useState(false);
 
   const toggleMeasurements = () => {
