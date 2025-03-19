@@ -21,6 +21,7 @@ interface FileUploadProps {
   >;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   showMeasurements: boolean;
+  showFaceMesh: boolean;
   setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -32,6 +33,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   setProbabilities,
   setError,
   showMeasurements,
+  showFaceMesh,
   setIsProcessing,
 }) => {
   const photoCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -186,7 +188,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         <canvas
           ref={faceMeshCanvasRef}
           className={`absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none border border-gray-300 w-3/4 ${
-            lastResults ? "" : "hidden"
+            lastResults ? (showFaceMesh ? "" : "hidden") : "hidden"
           }`}
         />
       </div>

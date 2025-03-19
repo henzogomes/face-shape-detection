@@ -28,7 +28,14 @@ const Home: React.FC = () => {
         structuredData={defaultStructuredData}
       />
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-        <h1 className="text-4xl font-bold mb-8">Face Shape Detection</h1>
+        <header className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-4">Face Shape Detection</h1>
+          <p className="text-lg text-gray-700 max-w-md mx-auto">
+            Discover your unique face shape using our advanced AI detection
+            tool. Upload a photo and get instant results.
+          </p>
+        </header>
+
         <button
           onClick={() => {
             trackDetectButtonClick();
@@ -38,6 +45,14 @@ const Home: React.FC = () => {
         >
           {APP_ICON} Let's start!
         </button>
+
+        <section className="mt-8 text-center max-w-lg">
+          <p className="text-gray-600">
+            Our AI analyzes facial landmarks to identify your face shape: oval,
+            round, square, heart, diamond, or oblong. Get personalized
+            recommendations based on your results.
+          </p>
+        </section>
       </div>
     </>
   );
