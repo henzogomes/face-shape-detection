@@ -2,7 +2,7 @@
 import React from "react";
 import ProgressBars from "./ProgressBars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRuler, faRulerHorizontal } from "@fortawesome/free-solid-svg-icons";
+import { faFaceSmile, faFaceSurprise } from "@fortawesome/free-solid-svg-icons";
 
 interface ResultsProps {
   faceShape: string;
@@ -13,6 +13,8 @@ interface ResultsProps {
   isProcessing: boolean;
   showMeasurements: boolean;
   toggleMeasurements: () => void;
+  showFaceMesh: boolean;
+  toggleFaceMesh: () => void;
 }
 
 const Results: React.FC<ResultsProps> = ({
@@ -24,6 +26,8 @@ const Results: React.FC<ResultsProps> = ({
   isProcessing,
   showMeasurements,
   toggleMeasurements,
+  showFaceMesh,
+  toggleFaceMesh,
 }) => {
   return (
     <section className="mt-5 text-left">
@@ -70,24 +74,24 @@ const Results: React.FC<ResultsProps> = ({
                   : "-"}
               </p>
             </div>
-
-            {/* Measurement control button - only shown when we have results */}
-            {faceShape !== "-" && (
-              <div className="mb-4">
-                <button
-                  onClick={toggleMeasurements}
-                  className="bg-white text-black border border-black hover:bg-gray-100 font-bold py-1 px-3 rounded text-sm flex items-center gap-2"
-                  aria-pressed={showMeasurements}
-                >
-                  <FontAwesomeIcon
-                    icon={showMeasurements ? faRulerHorizontal : faRuler}
-                    aria-hidden="true"
-                  />
-                  {showMeasurements ? "Hide Measurements" : "Show Measurements"}
-                </button>
-              </div>
-            )}
           </div>
+
+          {/* Visualization controls - only shown when we have results */}
+          {faceShape !== "-" && (
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={toggleFaceMesh}
+                className="bg-white text-black border border-black hover:bg-gray-100 font-bold py-1 px-3 rounded text-sm flex items-center gap-2"
+                aria-pressed={showFaceMesh}
+              >
+                <FontAwesomeIcon
+                  icon={showFaceMesh ? faFaceSurprise : faFaceSmile}
+                  aria-hidden="true"
+                />
+                {showFaceMesh ? "Hide Face Mesh" : "Show Face Mesh"}
+              </button>
+            </div>
+          )}
         </section>
       </article>
     </section>

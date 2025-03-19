@@ -14,6 +14,7 @@ const FaceAnalyzer: React.FC = () => {
   );
   const [error, setError] = useState<string | null>(null);
   const [showMeasurements, setShowMeasurements] = useState(false);
+  const [showFaceMesh, setShowFaceMesh] = useState(false); // Add this line
   const [isProcessing, setIsProcessing] = useState(false);
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
 
@@ -44,6 +45,10 @@ const FaceAnalyzer: React.FC = () => {
 
   const toggleMeasurements = () => {
     setShowMeasurements(!showMeasurements);
+  };
+
+  const toggleFaceMesh = () => {
+    setShowFaceMesh(!showFaceMesh);
   };
 
   return (
@@ -91,6 +96,7 @@ const FaceAnalyzer: React.FC = () => {
             setProbabilities={setProbabilities}
             setError={setError}
             showMeasurements={showMeasurements}
+            showFaceMesh={showFaceMesh} // Add this line
             setIsProcessing={setIsProcessing}
           />
         </section>
@@ -112,6 +118,8 @@ const FaceAnalyzer: React.FC = () => {
             isProcessing={isProcessing}
             showMeasurements={showMeasurements}
             toggleMeasurements={toggleMeasurements}
+            showFaceMesh={showFaceMesh} // Add this line
+            toggleFaceMesh={toggleFaceMesh} // Add this line
           />
         </section>
       </div>
