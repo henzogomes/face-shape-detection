@@ -1,38 +1,6 @@
 import React from "react";
-
-// Face shape type descriptions
-const faceShapeInfo = [
-  {
-    type: "oblong",
-    description:
-      "Characterized by a face length noticeably longer than its width, with forehead, cheekbones, and jawline having similar widths throughout.",
-  },
-  {
-    type: "oval",
-    description:
-      "Features a face that's longer than wide with a gently curved jawline and a forehead slightly wider than the chin, creating balanced proportions.",
-  },
-  {
-    type: "square",
-    description:
-      "Defined by a strong, angular jawline and forehead that are approximately equal in width, creating a boxier facial structure.",
-  },
-  {
-    type: "round",
-    description:
-      "Distinguished by soft curves with similar width and length measurements, fuller cheeks, and an absence of sharp angles along the jawline.",
-  },
-  {
-    type: "heart",
-    description:
-      "Presents with a wider forehead and high cheekbones that taper to a narrow, sometimes pointed chin, resembling an inverted triangle.",
-  },
-  {
-    type: "diamond",
-    description:
-      "Features prominent cheekbones as the widest point, with both forehead and jawline narrower, and often a defined, pointed chin.",
-  },
-];
+import { Link } from "react-router-dom";
+import { FACE_SHAPES } from "../Constants";
 
 interface ShapesInfoProps {
   highlightedShape?: string;
@@ -45,7 +13,7 @@ const ShapesInfo: React.FC<ShapesInfoProps> = ({ highlightedShape }) => {
         Face Shape Types Guide
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {faceShapeInfo.map((shape) => (
+        {FACE_SHAPES.map((shape) => (
           <article
             key={shape.type}
             className={`p-4 rounded-lg shadow ${
@@ -68,10 +36,20 @@ const ShapesInfo: React.FC<ShapesInfoProps> = ({ highlightedShape }) => {
                 highlightedShape?.toLowerCase() === shape.type
                   ? "text-white"
                   : "text-gray-600"
-              }`}
+              } mb-3`}
             >
               {shape.description}
             </p>
+            <Link
+              to={shape.path}
+              className={`inline-block mt-2 ${
+                highlightedShape?.toLowerCase() === shape.type
+                  ? "text-white hover:text-gray-100 underline"
+                  : "text-blue-500 hover:underline"
+              }`}
+            >
+              Learn more about {shape.type} face shape →
+            </Link>
           </article>
         ))}
       </div>

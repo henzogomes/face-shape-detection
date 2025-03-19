@@ -5,10 +5,15 @@ User-agent: *
 Allow: /
 Allow: /detect
 Allow: /about
+Allow: /face-shapes/
 
 # Disallow any future admin or private areas
 Disallow: /admin/
 Disallow: /private/
+Disallow: /api/
+
+# Crawl-delay directive for bots
+Crawl-delay: 10
 
 # Sitemap location
 Sitemap: https://myfaceshape.pro/sitemap.xml
