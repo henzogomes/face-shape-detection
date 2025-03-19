@@ -1,4 +1,4 @@
-name: Deploy to S3 and Purge Cloudflare Cache
+name: Deploy to S3 and Invalidate CloudFront Cache
 
 on:
   push:
@@ -40,17 +40,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Install jq (required for parsing JSON responses)
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
       # Run the deploy.sh script
-      - name: Deploy to S3 and Purge Cloudflare Cache
+      - name: Deploy to S3 and Invalidate CloudFront Cache
         env:
-          CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          CF_EMAIL: ${{ secrets.CF_EMAIL }}
-          CF_ZONE_ID_MYFACESHAPE_PRO: ${{ secrets.CF_ZONE_ID_MYFACESHAPE_PRO }}
-          CF_ZONE_ID_FACESHAPE_MY: ${{ secrets.CF_ZONE_ID_FACESHAPE_MY }}
+          CF_DISTRIBUTION_ID_MYFACESHAPE_PRO: ${{ secrets.CF_DISTRIBUTION_ID_MYFACESHAPE_PRO }}
+          CF_DISTRIBUTION_ID_FACESHAPE_MY: ${{ secrets.CF_DISTRIBUTION_ID_FACESHAPE_MY }}
         run: |
           chmod +x deploy.sh
           ./deploy.sh
