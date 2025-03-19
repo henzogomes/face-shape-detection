@@ -26,11 +26,12 @@ const Results: React.FC<ResultsProps> = ({
   toggleMeasurements,
 }) => {
   return (
-    <div className="mt-5 text-left">
+    <section className="mt-5 text-left">
       <h2 className="text-xl font-bold mb-4">Your Face Analysis</h2>
 
-      <div className="bg-white p-5 rounded-lg shadow">
-        <div className="mb-4">
+      <article className="bg-white p-5 rounded-lg shadow">
+        {/* Main Result */}
+        <header className="mb-4">
           <h3 className="text-2xl font-bold text-orange-600 mb-2 inline">
             Face type:
             <span className="text-2xl font-bold uppercase text-black">
@@ -38,52 +39,58 @@ const Results: React.FC<ResultsProps> = ({
               {faceShape}
             </span>
           </h3>
-        </div>
+        </header>
 
-        <div>
+        {/* Probabilities Section */}
+        <section>
           <ProgressBars probabilities={probabilities} />
-        </div>
+        </section>
 
-        <h3 className="text-lg font-bold mb-2 mt-10">Measurements</h3>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <p className="text-gray-600 text-sm">Face Length</p>
-            <p className="font-medium">{faceLength}</p>
-          </div>
-          <div>
-            <p className="text-gray-600 text-sm">Face Width</p>
-            <p className="font-medium">{faceWidth}</p>
-          </div>
-          <div>
-            <p className="text-gray-600 text-sm">Jawline Width</p>
-            <p className="font-medium">{jawlineWidth}</p>
-          </div>
-          <div>
-            <p className="text-gray-600 text-sm">Ratio (L:W)</p>
-            <p className="font-medium">
-              {faceLength !== "-" && faceWidth !== "-"
-                ? (Number(faceLength) / Number(faceWidth)).toFixed(2)
-                : "-"}
-            </p>
-          </div>
-
-          {/* Measurement control button - only shown after processing */}
-          {isProcessing && (
-            <div className="mb-4">
-              <button
-                onClick={toggleMeasurements}
-                className="bg-white text-black border border-black hover:bg-gray-100 font-bold py-1 px-3 rounded text-sm flex items-center gap-2"
-              >
-                <FontAwesomeIcon
-                  icon={showMeasurements ? faRulerHorizontal : faRuler}
-                />
-                {showMeasurements ? "Hide Measurements" : "Show Measurements"}
-              </button>
+        {/* Measurements Section */}
+        <section>
+          <h3 className="text-lg font-bold mb-2 mt-10">Measurements</h3>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-gray-600 text-sm">Face Length</p>
+              <p className="font-medium">{faceLength}</p>
             </div>
-          )}
-        </div>
-      </div>
-    </div>
+            <div>
+              <p className="text-gray-600 text-sm">Face Width</p>
+              <p className="font-medium">{faceWidth}</p>
+            </div>
+            <div>
+              <p className="text-gray-600 text-sm">Jawline Width</p>
+              <p className="font-medium">{jawlineWidth}</p>
+            </div>
+            <div>
+              <p className="text-gray-600 text-sm">Ratio (L:W)</p>
+              <p className="font-medium">
+                {faceLength !== "-" && faceWidth !== "-"
+                  ? (Number(faceLength) / Number(faceWidth)).toFixed(2)
+                  : "-"}
+              </p>
+            </div>
+
+            {/* Measurement control button - only shown when we have results */}
+            {faceShape !== "-" && (
+              <div className="mb-4">
+                <button
+                  onClick={toggleMeasurements}
+                  className="bg-white text-black border border-black hover:bg-gray-100 font-bold py-1 px-3 rounded text-sm flex items-center gap-2"
+                  aria-pressed={showMeasurements}
+                >
+                  <FontAwesomeIcon
+                    icon={showMeasurements ? faRulerHorizontal : faRuler}
+                    aria-hidden="true"
+                  />
+                  {showMeasurements ? "Hide Measurements" : "Show Measurements"}
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </article>
+    </section>
   );
 };
 

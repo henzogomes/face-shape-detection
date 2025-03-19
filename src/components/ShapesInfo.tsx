@@ -40,11 +40,13 @@ interface ShapesInfoProps {
 
 const ShapesInfo: React.FC<ShapesInfoProps> = ({ highlightedShape }) => {
   return (
-    <div className="mt-8">
-      <h2 className="text-xl font-bold mb-4">Face Shape Types Guide</h2>
+    <section className="mt-8" aria-labelledby="face-shapes-guide">
+      <h2 id="face-shapes-guide" className="text-xl font-bold mb-4">
+        Face Shape Types Guide
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {faceShapeInfo.map((shape) => (
-          <div
+          <article
             key={shape.type}
             className={`p-4 rounded-lg shadow ${
               highlightedShape?.toLowerCase() === shape.type
@@ -70,10 +72,10 @@ const ShapesInfo: React.FC<ShapesInfoProps> = ({ highlightedShape }) => {
             >
               {shape.description}
             </p>
-          </div>
+          </article>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

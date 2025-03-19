@@ -50,9 +50,16 @@ const FaceAnalyzer: React.FC = () => {
     <div className="relative">
       {/* Processing Overlay */}
       {showProcessingOverlay && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 flex items-center justify-center">
+        <div
+          className="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 flex items-center justify-center"
+          role="alert"
+          aria-live="assertive"
+        >
           <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <div className="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <div
+              className="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"
+              aria-hidden="true"
+            ></div>
             <p className="text-lg font-semibold">Processing your image...</p>
             <p className="text-sm text-gray-500 mt-2">
               Please wait while we analyze your face shape
@@ -61,11 +68,21 @@ const FaceAnalyzer: React.FC = () => {
         </div>
       )}
 
-      {error && <p className="text-red-500 mb-5 text-center">{error}</p>}
+      {error && (
+        <div role="alert" className="text-red-500 mb-5 text-center">
+          {error}
+        </div>
+      )}
 
       <div className="flex flex-col md:flex-row gap-1">
         {/* Left Column - File Upload */}
-        <div className="w-full md:w-2/3 p-4">
+        <section
+          className="w-full md:w-2/3 p-4"
+          aria-labelledby="upload-section"
+        >
+          <h2 id="upload-section" className="sr-only">
+            Upload Photo Section
+          </h2>
           <FileUpload
             setFaceShape={setFaceShape}
             setFaceLength={setFaceLength}
@@ -76,10 +93,16 @@ const FaceAnalyzer: React.FC = () => {
             showMeasurements={showMeasurements}
             setIsProcessing={setIsProcessing}
           />
-        </div>
+        </section>
 
         {/* Right Column - Results */}
-        <div className="w-full md:w-3/6 p-4">
+        <section
+          className="w-full md:w-3/6 p-4"
+          aria-labelledby="results-section"
+        >
+          <h2 id="results-section" className="sr-only">
+            Analysis Results
+          </h2>
           <Results
             faceShape={faceShape}
             faceLength={faceLength}
@@ -90,13 +113,18 @@ const FaceAnalyzer: React.FC = () => {
             showMeasurements={showMeasurements}
             toggleMeasurements={toggleMeasurements}
           />
-        </div>
+        </section>
       </div>
 
       {/* Face Shape Information Section */}
-      <ShapesInfo
-        highlightedShape={faceShape !== "-" ? faceShape : undefined}
-      />
+      <section aria-labelledby="shapes-info">
+        <h2 id="shapes-info" className="sr-only">
+          Face Shape Information
+        </h2>
+        <ShapesInfo
+          highlightedShape={faceShape !== "-" ? faceShape : undefined}
+        />
+      </section>
     </div>
   );
 };
