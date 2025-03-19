@@ -1,14 +1,23 @@
 import React from "react";
 import FaceAnalyzer from "../components/FaceAnalyzer";
+import SEO from "../components/SEO";
+import { defaultStructuredData } from "../Constants";
 
 const Detect: React.FC = () => {
   return (
-    <div className="p-5 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-5 text-center">
-        ✨ Face Shape Detection
-      </h1>
-      <FaceAnalyzer />
-    </div>
+    <>
+      <SEO
+        title="Detect Your Face Shape"
+        description="Upload a photo to our AI tool and discover your face shape - oval, round, square, heart, diamond, or oblong."
+        keywords="face shape detection, AI face analyzer, face width measurement, facial analysis"
+        path="/detect"
+        structuredData={defaultStructuredData}
+      />
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Face Shape Detection</h1>
+        <FaceAnalyzer />
+      </div>
+    </>
   );
 };
 

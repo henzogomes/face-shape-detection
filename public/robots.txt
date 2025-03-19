@@ -1,0 +1,14 @@
+# robots.txt for Face Shape Detection App
+
+# Allow all web crawlers
+User-agent: *
+Allow: /
+Allow: /detect
+Allow: /about
+
+# Disallow any future admin or private areas
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://myfaceshape.pro/sitemap.xml
