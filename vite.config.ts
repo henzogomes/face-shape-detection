@@ -1,21 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import legacy from "@vitejs/plugin-legacy";
 import tailwindcss from "@tailwindcss/postcss";
 import autoprefixer from "autoprefixer";
 import { APP_VERSION } from "./src/Constants";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    legacy({
-      targets: ["defaults", "not IE 11"],
-      modernTargets: ["last 2 versions", "not IE 11", "not dead"],
-      renderLegacyChunks: true,
-      polyfills: true,
-    }),
-  ],
-
+  plugins: [react()],
   build: {
     modulePreload: {
       polyfill: false,
