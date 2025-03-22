@@ -13,8 +13,10 @@ const Detect: React.FC = () => {
         path="/detect"
         structuredData={defaultStructuredData}
       />
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Face Shape Detection</h1>
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Face Shape Detection
+        </h1>
         <FaceAnalyzer />
       </div>
     </>

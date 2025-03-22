@@ -22,13 +22,15 @@ const OvalFace: React.FC = () => {
       <article className="max-w-3xl mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <h1 className="text-3xl font-bold mb-6">Oval Face Shape</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Oval Face Shape
+        </h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Characteristics of an Oval Face
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Oval faces are considered the most balanced and versatile face
               shape:
@@ -48,10 +50,10 @@ const OvalFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Best Hairstyles for Oval Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Oval faces are fortunate to suit almost any hairstyle, but these
               are particularly flattering:
@@ -71,10 +73,10 @@ const OvalFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Eyewear for Oval Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Oval faces can wear nearly any eyeglass style, but these tend to
               be most flattering:
@@ -91,10 +93,10 @@ const OvalFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Makeup Tips for Oval Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Makeup application for oval faces focuses on enhancing natural
               features:

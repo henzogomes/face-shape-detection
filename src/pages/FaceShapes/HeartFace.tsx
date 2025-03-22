@@ -22,13 +22,15 @@ const HeartFace: React.FC = () => {
       <article className="max-w-3xl mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <h1 className="text-3xl font-bold mb-6">Heart Face Shape</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Heart Face Shape
+        </h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Characteristics of a Heart Face
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The heart face shape is characterized by its distinctive top-heavy
               appearance:
@@ -48,10 +50,10 @@ const HeartFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Best Hairstyles for Heart Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Ideal hairstyles for heart-shaped faces balance the wider forehead
               with the narrower chin:
@@ -75,10 +77,10 @@ const HeartFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Eyewear for Heart Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The best eyewear for heart-shaped faces balances the proportions
               and draws attention away from the forehead:
@@ -98,10 +100,10 @@ const HeartFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Makeup Tips for Heart Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Makeup can help balance the proportions of a heart-shaped face:
             </p>

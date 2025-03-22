@@ -6,6 +6,8 @@ export const APP_DESCRIPTION =
 export const APP_ICON = "✨";
 export const APP_VERSION = "1.1.0";
 export const APP_BASE_URL = "https://myfaceshape.pro";
+export const KEYWORDS =
+  "face shape, face detection, facial analysis, AI face shape detection";
 
 export const defaultStructuredData = {
   "@context": "https://schema.org",

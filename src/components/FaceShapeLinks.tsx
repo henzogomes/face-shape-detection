@@ -10,7 +10,7 @@ interface FaceShapeLinksProps {
 const FaceShapeLinks: React.FC<FaceShapeLinksProps> = ({ currentShape }) => {
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
         Compare With Other Face Shapes
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -19,7 +19,7 @@ const FaceShapeLinks: React.FC<FaceShapeLinksProps> = ({ currentShape }) => {
             <Link
               key={shape.type}
               to={shape.path}
-              className="text-blue-500 hover:underline"
+              className="text-blue-500 dark:text-blue-400 hover:underline"
             >
               {shape.type.charAt(0).toUpperCase() + shape.type.slice(1)} Face
             </Link>
