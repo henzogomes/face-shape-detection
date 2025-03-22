@@ -1,5 +1,10 @@
 import React from "react";
-import { APP_NAME, APP_DESCRIPTION, APP_BASE_URL } from "../Constants";
+import {
+  APP_NAME,
+  APP_DESCRIPTION,
+  APP_BASE_URL,
+  KEYWORDS,
+} from "../Constants";
 
 interface SEOProps {
   title?: string;
@@ -14,7 +19,7 @@ interface SEOProps {
 const SEO = ({
   title,
   description = APP_DESCRIPTION,
-  keywords = "face shape, face detection, facial analysis, AI face shape detection",
+  keywords = KEYWORDS,
   image = "/social-preview.png",
   type = "website",
   path = "",

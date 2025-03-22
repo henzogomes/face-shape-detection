@@ -21,13 +21,15 @@ const OblongFace: React.FC = () => {
       <article className="max-w-3xl mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <h1 className="text-3xl font-bold mb-6">Oblong Face Shape</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Oblong Face Shape
+        </h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Characteristics of an Oblong Face
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The oblong face shape (sometimes called rectangular) is
               characterized by its length:
@@ -47,10 +49,10 @@ const OblongFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Best Hairstyles for Oblong Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Ideal hairstyles for oblong faces create the illusion of width and
               minimize length:
@@ -72,10 +74,10 @@ const OblongFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Eyewear for Oblong Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The best eyewear choices for oblong faces create balance by adding
               width:
@@ -97,10 +99,10 @@ const OblongFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Makeup Tips for Oblong Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Makeup can help create the illusion of a shorter, wider face:
             </p>

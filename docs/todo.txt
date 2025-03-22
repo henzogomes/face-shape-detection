@@ -4,3 +4,6 @@ fix shape probabilities and add animation
 work on better ui
 logo
 fix shape probabilities and add animation
+
+
+social preview

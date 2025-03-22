@@ -14,7 +14,7 @@ const FaceAnalyzer: React.FC = () => {
   );
   const [error, setError] = useState<string | null>(null);
   const [showMeasurements, setShowMeasurements] = useState(false);
-  const [showFaceMesh, setShowFaceMesh] = useState(false); // Add this line
+  const [showFaceMesh, setShowFaceMesh] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
 
@@ -56,17 +56,19 @@ const FaceAnalyzer: React.FC = () => {
       {/* Processing Overlay */}
       {showProcessingOverlay && (
         <div
-          className="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 flex items-center justify-center"
+          className="fixed inset-0 bg-gray-800 bg-opacity-70 dark:bg-black dark:bg-opacity-80 z-50 flex items-center justify-center"
           role="alert"
           aria-live="assertive"
         >
-          <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
             <div
               className="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"
               aria-hidden="true"
             ></div>
-            <p className="text-lg font-semibold">Processing your image...</p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">
+              Processing your image...
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
               Please wait while we analyze your face shape
             </p>
           </div>
@@ -74,15 +76,18 @@ const FaceAnalyzer: React.FC = () => {
       )}
 
       {error && (
-        <div role="alert" className="text-red-500 mb-5 text-center">
+        <div
+          role="alert"
+          className="text-red-500 dark:text-red-400 mb-5 text-center"
+        >
           {error}
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row gap-1">
+      <div className="flex flex-col md:flex-row gap-4">
         {/* Left Column - File Upload */}
         <section
-          className="w-full md:w-2/3 p-4"
+          className="w-full md:w-2/3 p-4 bg-white dark:bg-gray-800 rounded-lg"
           aria-labelledby="upload-section"
         >
           <h2 id="upload-section" className="sr-only">
@@ -96,14 +101,14 @@ const FaceAnalyzer: React.FC = () => {
             setProbabilities={setProbabilities}
             setError={setError}
             showMeasurements={showMeasurements}
-            showFaceMesh={showFaceMesh} // Add this line
+            showFaceMesh={showFaceMesh}
             setIsProcessing={setIsProcessing}
           />
         </section>
 
         {/* Right Column - Results */}
         <section
-          className="w-full md:w-3/6 p-4"
+          className="w-full md:w-3/6 p-4 bg-white dark:bg-gray-800 rounded-lg"
           aria-labelledby="results-section"
         >
           <h2 id="results-section" className="sr-only">
@@ -118,14 +123,17 @@ const FaceAnalyzer: React.FC = () => {
             isProcessing={isProcessing}
             showMeasurements={showMeasurements}
             toggleMeasurements={toggleMeasurements}
-            showFaceMesh={showFaceMesh} // Add this line
-            toggleFaceMesh={toggleFaceMesh} // Add this line
+            showFaceMesh={showFaceMesh}
+            toggleFaceMesh={toggleFaceMesh}
           />
         </section>
       </div>
 
       {/* Face Shape Information Section */}
-      <section aria-labelledby="shapes-info">
+      <section
+        aria-labelledby="shapes-info"
+        className="mt-8 bg-white dark:bg-gray-800 rounded-lg p-4"
+      >
         <h2 id="shapes-info" className="sr-only">
           Face Shape Information
         </h2>

@@ -22,13 +22,15 @@ const DiamondFace: React.FC = () => {
       <article className="max-w-3xl mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <h1 className="text-3xl font-bold mb-6">Diamond Face Shape</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Diamond Face Shape
+        </h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Characteristics of a Diamond Face
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The diamond face shape has distinct angular features with dramatic
               proportions:
@@ -49,10 +51,10 @@ const DiamondFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Best Hairstyles for Diamond Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Ideal hairstyles for diamond faces soften the angles and create
               balance:
@@ -76,10 +78,10 @@ const DiamondFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Eyewear for Diamond Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The best eyewear choices for diamond faces balance the proportions
               and soften angles:
@@ -99,10 +101,10 @@ const DiamondFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Makeup Tips for Diamond Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Makeup can help balance and soften the distinctive angles of a
               diamond face:

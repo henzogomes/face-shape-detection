@@ -22,13 +22,15 @@ const SquareFace: React.FC = () => {
       <article className="max-w-3xl mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <h1 className="text-3xl font-bold mb-6">Square Face Shape</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Square Face Shape
+        </h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Characteristics of a Square Face
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The square face shape features strong, defined angles and equal
               proportions:
@@ -48,10 +50,10 @@ const SquareFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Best Hairstyles for Square Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Ideal hairstyles for square faces soften the angular jawline and
               add height:
@@ -71,10 +73,10 @@ const SquareFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Eyewear for Square Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               The best eyewear choices for square faces soften angles and create
               balance:
@@ -94,10 +96,10 @@ const SquareFace: React.FC = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Makeup Tips for Square Faces
           </h2>
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert">
             <p className="mb-4">
               Makeup techniques can help soften the angular features of a square
               face:
